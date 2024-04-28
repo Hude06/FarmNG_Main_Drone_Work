@@ -1,18 +1,12 @@
-const { invoke } = window.__TAURI__.tauri;
+let startBut = document.getElementById("start")
+let stopBut = document.getElementById("stop")
+let droneConnected = false;
 
-let greetInputEl;
-let greetMsgEl;
+document.getElementById("connection").innerHTML = "Connected to the drone " + droneConnected
+startBut.addEventListener("click", function() {
+  console.log("We had a click, Start");
 
-async function greet() {
-  // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-  greetMsgEl.textContent = await invoke("greet", { name: greetInputEl.value });
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  greetInputEl = document.querySelector("#greet-input");
-  greetMsgEl = document.querySelector("#greet-msg");
-  document.querySelector("#greet-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    greet();
-  });
+});
+stopBut.addEventListener("click", function() {
+  console.log("We had a click, Stop");
 });
