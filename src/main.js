@@ -11,7 +11,7 @@ stopBut.addEventListener("click", function() {
   console.log("We had a click, Stop");
 });
 function checkDroneStatus() {
-  fetch('http://127.0.0.1:3000/DroneOnline')
+  fetch('http://apps.hude.earth:4300/DroneOnline')
   .then(response => {
       if (!response.ok) {
           throw new Error('Network response was not ok');
