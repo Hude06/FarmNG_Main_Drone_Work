@@ -55,8 +55,7 @@ function getGPSPoints() {
 
       // Add new points to the map
       GPSPoints.forEach(point => {
-        console.log()
-        drawPoint((parseFloat(point.latitude)), (parseFloat(point.longitude)), `Point at ${point.latitude}, ${point.longitude}`);
+        drawPoint(parseFloat(point.longitude), parseFloat(point.latitude), `Point at ${point.latitude}, ${point.longitude}`);
       });
     })
     .catch(error => {
@@ -81,6 +80,7 @@ function loop() {
 }
 
 function init() {  
+  getGPSPoints()
   droneConnectedStatus();
   initMap();
   loop();
