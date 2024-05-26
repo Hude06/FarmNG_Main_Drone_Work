@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0; /* Remove default body margin */
+    overflow: hidden;
+  }
+  h3 {
+    margin-left: 10px;
+    color: green;
+  }
+  button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  /* Hover effect */
+  button:hover {
+    background-color: #333;
+    color: #fff;
+    border-color: #333;
+  }
+  #map {
+    position: absolute;
+    z-index: 2;
+    height: 85%;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}  
