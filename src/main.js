@@ -28,7 +28,7 @@ function initMap() {
 }
 
 function drawPoint(lat, lng, popupText) {
-  const marker = L.marker([lng, lat])
+  const marker = L.marker([lat, lng])
       .addTo(map)
       .bindPopup(popupText);
   markers.push(marker);
