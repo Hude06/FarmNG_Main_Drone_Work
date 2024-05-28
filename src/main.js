@@ -37,7 +37,7 @@ function drawPoint(lat, lng, popupText) {
 function getGPSPoints() {
   if (!isFetching) return; // Stop fetching if tracking is stopped
 
-  fetch('http://apps.hude.earth:4300/gps')
+  fetch('https://apps.hude.earth:4300/gps')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
