@@ -27,7 +27,7 @@ function initMap() {
   }).addTo(map);
 
   // Set maximum zoom level
-  map.options.maxZoom = 18; // Adjust this value as needed
+  map.options.maxZoom = 30; // Adjust this value as needed
 }
 
 function drawPoint(lat, lng, popupText) {
