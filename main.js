@@ -20,7 +20,7 @@ stopBut.addEventListener("click", function() {
 });
 
 function initMap() {
-  map = L.map('map').setView([51.505, -0.09], 10); // Change the initial zoom level here
+  map = L.map('map').setView([34, -118], 5); // Change the initial zoom level here
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
