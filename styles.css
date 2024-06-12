@@ -41,3 +41,9 @@ body {
   position: absolute;
   z-index: 6;
 }
+/* #newMap {
+  position: absolute;
+  z-index: 7;
+  left: 90%;
+  transform: translateX(-10%);
+} */
