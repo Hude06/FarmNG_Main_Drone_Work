@@ -68,9 +68,7 @@ function getGPSPoints() {
       GPSPoints = data;
       console.log(GPSPoints);
       // Add new points to the map
-      GPSPoints.forEach(point => {
-        drawPoint(parseFloat(point.longitude), parseFloat(point.latitude), `Point at ${point.latitude}, ${point.longitude}`);
-      });
+      drawPoint(parseFloat(GPSPoints.longitude), parseFloat(GPSPoints.latitude), `Point at ${GPSPoints.latitude}, ${GPSPoints.longitude}`);
     })
     .catch(error => {
       console.error('There was a problem getting GPS points:', error);
