@@ -34,7 +34,9 @@ app.get('/gps', (req, res) => {
             }
         });
         res.send(jsonData)
-        jsonData = null
+        point = null
+        latitude = null
+        longitude = null
     }    
 
     if (!latitude || !longitude) {
