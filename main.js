@@ -1,12 +1,10 @@
 const startBut = document.getElementById("start");
 const stopBut = document.getElementById("stop");
-let droneConnected = false;
 let GPSPoints = [];
 let map;
 let isFetching = false;
 let markers = [];
 
-document.getElementById("connection").innerHTML = "Connected to the drone " + droneConnected;
 
 startBut.addEventListener("click", function() {
   console.log("Start button clicked");
