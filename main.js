@@ -34,26 +34,7 @@ function drawPoint(lat, lng, popupText) {
       .bindPopup(popupText);
   markers.push(marker);
 }
-function droneOnline() {
-  fetch('https://apps.judemakes.com/amiga/DroneOnline')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log(data)
-    })
-    .catch(error => {
-      console.error('There was a problem getting GPS points:', error);
-    })
-    .finally(() => {
-      if (isFetching) {
-        setTimeout(droneOnline, 2000); // Retry every 2 seconds if fetching is enabled
-      }
-    });
-}
+
 function getGPSPoints() {
   if (!isFetching) return; // Stop fetching if tracking is stopped
 
@@ -65,6 +46,7 @@ function getGPSPoints() {
       return response.json();
     })
     .then(data => {
+      console.log("Data is ",data)
       GPSPoints = data;
       console.log(GPSPoints);
       // Add new points to the map

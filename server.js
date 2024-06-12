@@ -34,11 +34,11 @@ app.get('/gps', (req, res) => {
             }
         });
         res.send(jsonData)
-        gpsData = []
     }    
 
     if (!latitude || !longitude) {
         res.send(JSON.stringify(gpsData))
+        gpsData = []
     }
     // Write JSON data to file
     // Here you can do something with the received GPS point
