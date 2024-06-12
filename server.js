@@ -22,11 +22,12 @@ app.use((req, res, next) => {
 });
 app.get('/gps', (req, res) => {
     const { latitude, longitude } = req.query;
+
     console.log('Received GPS point:', { latitude, longitude });
 
     if (latitude || longitude){
         const point = { latitude, longitude };
-        gpsData = point
+        gpsData.push(point);
         const jsonData = JSON.stringify(gpsData);
         fs.writeFile('gps_data.json', jsonData, (err) => {
             if (err) {
@@ -34,14 +35,10 @@ app.get('/gps', (req, res) => {
             }
         });
         res.send(jsonData)
-        point = null
-        latitude = null
-        longitude = null
     }    
 
     if (!latitude || !longitude) {
         res.send(JSON.stringify(gpsData))
-        gpsData = []
     }
     // Write JSON data to file
     // Here you can do something with the received GPS point

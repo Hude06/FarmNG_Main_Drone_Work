@@ -46,17 +46,19 @@ function getGPSPoints() {
       return response.json();
     })
     .then(data => {
-      console.log("Data is ",data)
-      if (data.length !== 0) {
-        GPSPoints = data;
-        console.log(GPSPoints);
-        // Add new points to the map
-        drawPoint(parseFloat(GPSPoints.longitude), parseFloat(GPSPoints.latitude), `Point at ${GPSPoints.latitude}, ${GPSPoints.longitude}`);
-      }
+      GPSPoints = data;
+      console.log(GPSPoints);
+      // Clear existing markers
+      markers.forEach(marker => map.removeLayer(marker));
+      markers = [];
+
+      // Add new points to the map
+      GPSPoints.forEach(point => {
+        drawPoint(parseFloat(point.longitude), parseFloat(point.latitude), `Point at ${point.latitude}, ${point.longitude}`);
+      });
     })
     .catch(error => {
       console.error('There was a problem getting GPS points:', error);
-      droneConnected = false;
     })
     .finally(() => {
       if (isFetching) {
@@ -65,18 +67,12 @@ function getGPSPoints() {
     });
 }
 
-function droneConnectedStatus() {
-  droneConnected = false;
-  setTimeout(droneConnectedStatus, 2500); // Retry every 2.5 seconds
-}
-
 function loop() {
   requestAnimationFrame(loop);
 }
 
 function init() {  
   getGPSPoints()
-  droneConnectedStatus();
   initMap();
   loop();
 }
