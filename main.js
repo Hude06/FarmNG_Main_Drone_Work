@@ -93,7 +93,6 @@ function droneConnectedStatus() {
 }
 
 function loop() {
-  document.getElementById("connection").innerHTML = "Connected to the drone " + droneConnected;
   requestAnimationFrame(loop);
 }
 
