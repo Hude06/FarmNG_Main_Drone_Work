@@ -50,14 +50,13 @@ function getGPSPoints() {
     .then(data => {
       GPSPoints = data;
       console.log(GPSPoints);
-      droneConnected = true;
-
       // Clear existing markers
       markers.forEach(marker => map.removeLayer(marker));
       markers = [];
 
       // Add new points to the map
       GPSPoints.forEach(point => {
+        droneConnected = true;
         drawPoint(parseFloat(point.longitude), parseFloat(point.latitude), `Point at ${point.latitude}, ${point.longitude}`);
       });
     })
