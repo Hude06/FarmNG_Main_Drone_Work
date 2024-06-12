@@ -21,12 +21,12 @@ app.use((req, res, next) => {
     next();
 });
 app.get('/gps', (req, res) => {
-    const { latitude, longitude } = req.query;
+    const { latitude, longitude, heading } = req.query;
 
-    console.log('Received GPS point:', { latitude, longitude });
+    console.log('Received GPS point:', { latitude, longitude, heading });
 
     if (latitude || longitude){
-        const point = { latitude, longitude };
+        const point = { latitude, longitude, heading };
         gpsData.push(point);
         const jsonData = JSON.stringify(gpsData);
         fs.writeFile('gps_data.json', jsonData, (err) => {

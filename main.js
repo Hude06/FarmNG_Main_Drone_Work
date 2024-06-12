@@ -7,13 +7,11 @@ let markers = [];
 
 
 startBut.addEventListener("click", function() {
-  console.log("Start button clicked");
   isFetching = true;
   getGPSPoints();
 });
 
 stopBut.addEventListener("click", function() {
-  console.log("Stop button clicked");
   isFetching = false;
 });
 
@@ -47,13 +45,13 @@ function getGPSPoints() {
     })
     .then(data => {
       GPSPoints = data;
-      console.log(GPSPoints);
       // Clear existing markers
       markers.forEach(marker => map.removeLayer(marker));
       markers = [];
 
       // Add new points to the map
       GPSPoints.forEach(point => {
+        console.log(point.heading)
         drawPoint(parseFloat(point.longitude), parseFloat(point.latitude), `Point at ${point.latitude}, ${point.longitude}`);
       });
     })
