@@ -26,7 +26,7 @@ app.get('/gps', (req, res) => {
 
     if (latitude || longitude){
         const point = { latitude, longitude };
-        gpsData.push(point);
+        gpsData = point
         const jsonData = JSON.stringify(gpsData);
         fs.writeFile('gps_data.json', jsonData, (err) => {
             if (err) {
