@@ -40,7 +40,7 @@ function drawPoint(lat, lng, popupText) {
 function getGPSPoints() {
   if (!isFetching) return; // Stop fetching if tracking is stopped
 
-  fetch('https://apps.judemakes.com')
+  fetch('http://apps.judemakes.com')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
