@@ -22,7 +22,6 @@ app.use((req, res, next) => {
 });
 app.get('/gps', (req, res) => {
     const { latitude, longitude } = req.query;
-    droneOnline = true;
     console.log('Received GPS point:', { latitude, longitude });
 
     if (latitude || longitude){
