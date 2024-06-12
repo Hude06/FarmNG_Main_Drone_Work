@@ -47,10 +47,12 @@ function getGPSPoints() {
     })
     .then(data => {
       console.log("Data is ",data)
-      GPSPoints = data;
-      console.log(GPSPoints);
-      // Add new points to the map
-      drawPoint(parseFloat(GPSPoints.longitude), parseFloat(GPSPoints.latitude), `Point at ${GPSPoints.latitude}, ${GPSPoints.longitude}`);
+      if (data.length !== 0) {
+        GPSPoints = data;
+        console.log(GPSPoints);
+        // Add new points to the map
+        drawPoint(parseFloat(GPSPoints.longitude), parseFloat(GPSPoints.latitude), `Point at ${GPSPoints.latitude}, ${GPSPoints.longitude}`);
+      }
     })
     .catch(error => {
       console.error('There was a problem getting GPS points:', error);
