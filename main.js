@@ -1,43 +1,35 @@
-// DOM elements
 const startBut = document.getElementById("start");
 const stopBut = document.getElementById("stop");
-
-// Global variables
 let droneConnected = false;
 let GPSPoints = [];
 let map;
 let isFetching = false;
 let markers = [];
 
-// Display connection status
 document.getElementById("connection").innerHTML = "Connected to the drone " + droneConnected;
 
-// Event listeners for start and stop buttons
-startBut.addEventListener("click", function(event) {
-  event.preventDefault(); // Prevent default behavior
+startBut.addEventListener("click", function() {
   console.log("Start button clicked");
   isFetching = true;
   getGPSPoints();
 });
 
-stopBut.addEventListener("click", function(event) {
-  event.preventDefault(); // Prevent default behavior
+stopBut.addEventListener("click", function() {
   console.log("Stop button clicked");
   isFetching = false;
 });
 
-// Initialize Leaflet map
 function initMap() {
-  map = L.map('map').setView([34, -118], 5); // Set initial map view
+  map = L.map('map').setView([34, -118], 5); // Change the initial zoom level here
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
   // Set maximum zoom level
-  map.options.maxZoom = 30;
+  map.options.maxZoom = 30; // Adjust this value as needed
 }
 
-// Draw a point on the map
 function drawPoint(lat, lng, popupText) {
   const marker = L.marker([lat, lng])
       .addTo(map)
@@ -45,11 +37,10 @@ function drawPoint(lat, lng, popupText) {
   markers.push(marker);
 }
 
-// Fetch GPS points from server
 function getGPSPoints() {
   if (!isFetching) return; // Stop fetching if tracking is stopped
 
-  fetch('http://localhost:4300/gps')
+  fetch('https://apps.hude.earth/gps')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -81,25 +72,21 @@ function getGPSPoints() {
     });
 }
 
-// Check drone connection status
 function droneConnectedStatus() {
   droneConnected = false;
   setTimeout(droneConnectedStatus, 2500); // Retry every 2.5 seconds
 }
 
-// Update connection status continuously
 function loop() {
   document.getElementById("connection").innerHTML = "Connected to the drone " + droneConnected;
   requestAnimationFrame(loop);
 }
 
-// Initialization function
 function init() {  
-  getGPSPoints(); // Start fetching GPS points
-  droneConnectedStatus(); // Check drone connection status
-  initMap(); // Initialize Leaflet map
-  loop(); // Continuously update connection status
+  getGPSPoints()
+  droneConnectedStatus();
+  initMap();
+  loop();
 }
 
-// Call init function to start the application
 init();
