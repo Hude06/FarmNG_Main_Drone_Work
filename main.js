@@ -52,7 +52,7 @@ function getGPSPoints() {
       // Add new points to the map
       GPSPoints.forEach(point => {
         console.log(point.heading)
-        drawPoint(parseFloat(point.longitude), parseFloat(point.latitude), `Point at ${point.latitude}, ${point.longitude}`);
+        drawPoint(parseFloat(point.latitude), parseFloat(point.longitude), `Point at ${point.latitude}, ${point.longitude}`);
       });
     })
     .catch(error => {
