@@ -53,7 +53,9 @@ function getGPSPoints() {
 
       // Add new points to the map
       GPSPoints.forEach(point => {
-        console.log(point.heading)
+        for(let i = 0; i < point.lenth; i++) {
+          console.log(point[i].heading)
+        }
         drawPoint(parseFloat(point.latitude), parseFloat(point.longitude), `Point at ${point.latitude}, ${point.longitude}`);
       });
     })
