@@ -54,6 +54,7 @@ function getGPSPoints() {
       // Add new points to the map
       data.forEach(pointArray => {
         // Iterate through each point in the array
+        console.log(pointArray)
         pointArray.forEach(point => {
           drawPoint(parseFloat(point.latitude), parseFloat(point.longitude), `Point at ${point.latitude}, ${point.longitude}`);
         });
