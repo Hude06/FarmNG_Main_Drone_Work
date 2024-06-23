@@ -1,11 +1,12 @@
 const { json } = require('body-parser');
 const express = require('express');
 const fs = require('fs');
+
 // Create an Express application
 const app = express();
 let droneOnline = false;
-// Define a route
 let gpsData = [];
+
 function droneIsOnline() {
     setTimeout(() => {
         droneOnline = false;
@@ -13,42 +14,54 @@ function droneIsOnline() {
         droneIsOnline(); // Call the function recursively after 6 seconds
     }, 6000); // 6000 milliseconds = 6 seconds
 }
+
 droneIsOnline(); // Call the function to start the interval
+
+// Middleware for CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 });
-app.get('/gps', (req, res) => {
-    const { latitude, longitude, heading } = req.query;
 
-    console.log('Received GPS point:', { latitude, longitude, heading });
+// Middleware to parse JSON bodies
+app.use(express.json());
 
-    if (latitude || longitude){
-        const point = { latitude, longitude, heading };
-        gpsData.push(point);
-        const jsonData = JSON.stringify(gpsData);
-        fs.writeFile('gps_data.json', jsonData, (err) => {
-            if (err) {
-                console.error('Error writing data to file:', err);
-            }
-        });
-        res.send(jsonData)
-    }    
+// Route to receive batch GPS data
+app.post('/gps/batch', (req, res) => {
+    const batch = req.body.data; // Assuming the body contains { data: [ {latitude, longitude, heading}, ... ] }
+    
+    console.log('Received batch of GPS points:', batch);
 
-    if (!latitude || !longitude) {
-        res.send(JSON.stringify(gpsData))
-    }
-    // Write JSON data to file
-    // Here you can do something with the received GPS point
+    // Append batch to gpsData array
+    gpsData.push(...batch);
+
+    // Write GPS data to JSON file
+    const jsonData = JSON.stringify(gpsData);
+    fs.writeFile('gps_data.json', jsonData, (err) => {
+        if (err) {
+            console.error('Error writing data to file:', err);
+            res.status(500).json({ error: 'Failed to write GPS data to file' });
+        } else {
+            res.json({ message: 'Batch GPS data received and stored' });
+        }
+    });
 });
 
+// Route to get current GPS data
+app.get('/gps', (req, res) => {
+    res.json(gpsData);
+});
+
+// Route to indicate drone is online
 app.get('/ImOnline', (req, res) => {
-    res.send("Sending that IM ONLINE")
-    droneOnline = true
+    res.send("Sending that IM ONLINE");
+    droneOnline = true;
     console.log(droneOnline);
-})
+});
+
+// Route to check if drone is online
 app.get('/DroneOnline', (req, res) => {
     res.send(droneOnline);
 });
@@ -56,5 +69,5 @@ app.get('/DroneOnline', (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 4300;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
