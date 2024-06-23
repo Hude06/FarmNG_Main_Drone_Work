@@ -45,6 +45,7 @@ function getGPSPoints() {
     })
     .then(data => {
       GPSPoints = data;
+      console.log(GPSPoints)
       // Clear existing markers
       console.log(GPSPoints)
       markers.forEach(marker => map.removeLayer(marker));
