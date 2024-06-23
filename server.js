@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Route to receive batch GPS data
-app.post('/gps/batch', (req, res) => {
+app.post('/batch', (req, res) => {
     const batch = req.body.data; // Assuming the body contains { data: [ {latitude, longitude, heading}, ... ] }
     
     console.log('Received batch of GPS points:', batch);
