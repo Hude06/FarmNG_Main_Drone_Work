@@ -52,13 +52,13 @@ function getGPSPoints() {
       markers = [];
 
       // Add new points to the map
-      GPSPoints.forEach(point => {
-        for(let i = 0; i < point.length; i++) {
-          console.log(point[i].heading)
-        }
-        drawPoint(parseFloat(point.latitude), parseFloat(point.longitude), `Point at ${point.latitude}, ${point.longitude}`);
-      });
-    })
+      data.forEach(pointArray => {
+        // Iterate through each point in the array
+        pointArray.forEach(point => {
+          drawPoint(parseFloat(point.latitude), parseFloat(point.longitude), `Point at ${point.latitude}, ${point.longitude}`);
+        });
+      })
+   })
     .catch(error => {
       console.error('There was a problem getting GPS points:', error);
     })
