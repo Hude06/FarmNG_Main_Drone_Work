@@ -38,6 +38,7 @@ app.post('/gps/batch', (req, res) => {
     gpsData.push(...batch);
 
     // Write GPS data to JSON file
+    console.log(gpsData)
     const jsonData = JSON.stringify(gpsData);
     fs.writeFile('gps_data.json', jsonData, (err) => {
         if (err) {
