@@ -39,6 +39,9 @@ stopBut.addEventListener("click", function() {
     console.error('There was a problem getting GPS points:', error);
   })
   isFetching = false;
+  markers.forEach(marker => map.removeLayer(marker));
+  markers = [];
+
 });
 
 function initMap() {
