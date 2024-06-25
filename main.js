@@ -8,10 +8,36 @@ let markers = [];
 
 startBut.addEventListener("click", function() {
   isFetching = true;
+  fetch('https://apps.judemakes.com/amiga/tracking?tracking=true')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+    
+   })
+    .catch(error => {
+      console.error('There was a problem getting GPS points:', error);
+    })
   getGPSPoints();
 });
 
 stopBut.addEventListener("click", function() {
+  fetch('https://apps.judemakes.com/amiga/tracking?tracking=false')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+  
+ })
+  .catch(error => {
+    console.error('There was a problem getting GPS points:', error);
+  })
   isFetching = false;
 });
 
@@ -67,7 +93,6 @@ function getGPSPoints() {
       }
     });
 }
-
 function loop() {
   requestAnimationFrame(loop);
 }
