@@ -22,8 +22,7 @@ app.use(express.json());
 // Route to receive batch GPS data
 app.post('/batch', (req, res) => {
     const batch = req.body.data; // Assuming the body contains { data: [ {latitude, longitude, heading}, ... ] }
-    
-    console.log('Received batch of GPS points:', batch);
+    console.log('Received batch of GPS points:', batch,"Tracking + " + tracking);
     if (tracking) {
         // Append batch to gpsData array
         gpsData.push(...batch);
@@ -50,7 +49,7 @@ app.get('/gps', (req, res) => {
 // Route to indicate drone is online
 app.get('/tracking', (req, res) => {
     tracking = req.query.tracking === 'true'; // Convert the query parameter to a boolean
-    console.log(tracking); // Logs true or false
+    console.log("Setting tracking to ",tracking); // Logs true or false
     res.send("Setting tracking to" + tracking)
 });
 app.get('/IsTracking', (req, res) => {
