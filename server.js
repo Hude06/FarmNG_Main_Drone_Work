@@ -6,16 +6,7 @@ const fs = require('fs');
 const app = express();
 let droneOnline = false;
 let gpsData = [];
-
-function droneIsOnline() {
-    setTimeout(() => {
-        droneOnline = false;
-        console.log(droneOnline);
-        droneIsOnline(); // Call the function recursively after 6 seconds
-    }, 6000); // 6000 milliseconds = 6 seconds
-}
-
-droneIsOnline(); // Call the function to start the interval
+let tracking = false;
 
 // Middleware for CORS
 app.use((req, res, next) => {
@@ -33,21 +24,22 @@ app.post('/batch', (req, res) => {
     const batch = req.body.data; // Assuming the body contains { data: [ {latitude, longitude, heading}, ... ] }
     
     console.log('Received batch of GPS points:', batch);
+    if (tracking) {
+        // Append batch to gpsData array
+        gpsData.push(...batch);
 
-    // Append batch to gpsData array
-    gpsData.push(...batch);
-
-    // Write GPS data to JSON file
-    console.log(gpsData)
-    const jsonData = JSON.stringify(gpsData);
-    fs.writeFile('gps_data.json', jsonData, (err) => {
-        if (err) {
-            console.error('Error writing data to file:', err);
-            res.status(500).json({ error: 'Failed to write GPS data to file' });
-        } else {
-            res.json({ message: 'Batch GPS data received and stored' });
-        }
-    });
+        // Write GPS data to JSON file
+        console.log("Wrote this batch of GPS points",gpsData)
+        const jsonData = JSON.stringify(gpsData);
+        fs.writeFile('gps_data.json', jsonData, (err) => {
+            if (err) {
+                console.error('Error writing data to file:', err);
+                res.status(500).json({ error: 'Failed to write GPS data to file' });
+            } else {
+                res.json({ message: 'Batch GPS data received and stored' });
+            }
+        });
+    }
 });
 
 // Route to get current GPS data
@@ -56,15 +48,10 @@ app.get('/gps', (req, res) => {
 });
 
 // Route to indicate drone is online
-app.get('/ImOnline', (req, res) => {
-    res.send("Sending that IM ONLINE");
-    droneOnline = true;
-    console.log(droneOnline);
-});
-
-// Route to check if drone is online
-app.get('/DroneOnline', (req, res) => {
-    res.send(droneOnline);
+app.get('/tracking', (req, res) => {
+    tracking = req.query.tracking === 'true'; // Convert the query parameter to a boolean
+    console.log(tracking); // Logs true or false
+    res.send(tracking);
 });
 
 // Start the server
