@@ -51,8 +51,10 @@ app.get('/gps', (req, res) => {
 app.get('/tracking', (req, res) => {
     tracking = req.query.tracking === 'true'; // Convert the query parameter to a boolean
     console.log(tracking); // Logs true or false
-    res.send(tracking);
 });
+app.get('/IsTracking', (req, res) => {
+    res.send(tracking);
+})
 
 // Start the server
 const PORT = process.env.PORT || 4300;
