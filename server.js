@@ -18,7 +18,6 @@ app.use((req, res, next) => {
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-
 // Route to receive batch GPS data
 app.post('/batch', (req, res) => {
     res.send("working")

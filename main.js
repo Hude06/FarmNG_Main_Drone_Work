@@ -4,8 +4,26 @@ let GPSPoints = [];
 let map;
 let isFetching = false;
 let markers = [];
+const errorLog = document.getElementById('error-log');
+let pvt = document.getElementById("pvt")
 
-
+pvt.innerText = GPSPoints
+console.error = function(message) {
+  // Create a new paragraph element
+  const errorElement = document.createElement('p');
+  // Set its content to the error message
+  errorElement.textContent = message;
+  // Append the error message to the error log container
+  errorLog.appendChild(errorElement);
+};
+console.log = function(message) {
+  // Create a new paragraph element
+  const errorElement = document.createElement('p');
+  // Set its content to the error message
+  errorElement.textContent = message;
+  // Append the error message to the error log container
+  errorLog.appendChild(errorElement);
+};
 startBut.addEventListener("click", function() {
   isFetching = true;
   fetch('https://apps.judemakes.com/amiga/tracking?tracking=true')
@@ -23,7 +41,6 @@ startBut.addEventListener("click", function() {
     })
   getGPSPoints();
 });
-
 stopBut.addEventListener("click", function() {
   fetch('https://apps.judemakes.com/amiga/tracking?tracking=false')
   .then(response => {
@@ -53,17 +70,6 @@ function initMap() {
 
   // Set maximum zoom level
   map.options.maxZoom = 30; // Adjust this value as needed
-
-  // Create a polyline and add it to the map
-  var polyline = L.polyline(GPSPoints, {color: 'blue'}).addTo(map);
-
-  // Zoom the map to the polyline
-  map.fitBounds(polyline.getBounds());
-
-  // Add markers at each point
-  points.forEach(function(point) {
-      L.marker(point).addTo(map);
-  });
 }
 
 function drawPoint(lat, lng, popupText) {
@@ -85,7 +91,7 @@ function getGPSPoints() {
     })
     .then(data => {
       GPSPoints = data;
-      console.log(GPSPoints)
+      console.log("Points?",GPSPoints)
       // Clear existing markers
       console.log(GPSPoints)
       markers.forEach(marker => map.removeLayer(marker));
@@ -102,9 +108,7 @@ function getGPSPoints() {
       console.error('There was a problem getting GPS points:', error);
     })
     .finally(() => {
-      if (isFetching) {
         setTimeout(getGPSPoints, 2000); // Retry every 2 seconds if fetching is enabled
-      }
     });
 }
 function loop() {
