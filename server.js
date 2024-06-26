@@ -34,8 +34,6 @@ app.post('/batch', (req, res) => {
             if (err) {
                 console.error('Error writing data to file:', err);
                 res.status(500).json({ error: 'Failed to write GPS data to file' });
-            } else {
-                res.json({ message: 'Batch GPS data received and stored' });
             }
         });
     }

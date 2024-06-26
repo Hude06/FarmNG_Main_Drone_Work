@@ -7,7 +7,7 @@ let markers = [];
 const errorLog = document.getElementById('error-log');
 let pvt = document.getElementById("pvt")
 
-pvt.innerText = GPSPoints
+pvt.innerHTML = GPSPoints
 console.error = function(message) {
   // Create a new paragraph element
   const errorElement = document.createElement('p');

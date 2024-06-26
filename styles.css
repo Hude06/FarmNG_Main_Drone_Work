@@ -37,10 +37,10 @@ button:hover {
 #map {
   position: absolute;
   top: 5%;
-  left: 48%;
+  left: 55%;
   z-index: 2;
-  height: 90%;
-  width: 50%;
+  height: 700px;
+  width: 600px;
   max-width: 100%;
   max-height: 100%;
   border: 3px solid black;
