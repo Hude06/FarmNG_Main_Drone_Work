@@ -45,7 +45,7 @@ stopBut.addEventListener("click", function() {
 });
 
 function initMap() {
-  map = L.map('map').setView([34, -118], 5); // Change the initial zoom level here
+  var map = L.map('map').setView([34, -118], 5); // Change the initial zoom level here
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -53,6 +53,17 @@ function initMap() {
 
   // Set maximum zoom level
   map.options.maxZoom = 30; // Adjust this value as needed
+
+  // Create a polyline and add it to the map
+  var polyline = L.polyline(GPSPoints, {color: 'blue'}).addTo(map);
+
+  // Zoom the map to the polyline
+  map.fitBounds(polyline.getBounds());
+
+  // Add markers at each point
+  points.forEach(function(point) {
+      L.marker(point).addTo(map);
+  });
 }
 
 function drawPoint(lat, lng, popupText) {
