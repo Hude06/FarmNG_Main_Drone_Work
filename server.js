@@ -20,7 +20,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 // Route to receive batch GPS data
 app.post('/batch', (req, res) => {
-    res.send("working")
     const batch = req.body.data; // Assuming the body contains { data: [ {latitude, longitude, heading}, ... ] }
     console.log('Received batch of GPS points:', batch,"Tracking + " + tracking);
     if (tracking) {
@@ -37,6 +36,8 @@ app.post('/batch', (req, res) => {
             }
         });
     }
+    res.status(200)
+    res.send("working")
 });
 
 // Route to get current GPS data
